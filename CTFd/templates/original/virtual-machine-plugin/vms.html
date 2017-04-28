@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron home">
+    <div class="container">
+        <h1>Virtual Machines</h1>
+    </div>
+</div>
+<div class="container main-container">
+    {% for v in vms %}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p><b>{{ v.name }}</b></p>
+            <p><span class="marked">{{ v.desc }}</span></p>
+            <p><b>Access Token:</b> <pre>{{ v.key }}</pre></p>
+        </div>
+    </div>
+    {% endfor %}
+    {% if vms | length == 0 %}
+    <h4>You do not have access to any virtual machines</h4>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ request.script_root }}/static/{{ ctf_theme() }}/virtual-machine-plugin/"></script>
+<script>
+$('.marked').each(function(){this.innerHTML = marked(this.innerHTML);});
+</script>
+
+{% endblock %}
